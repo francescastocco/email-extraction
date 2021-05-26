@@ -1,4 +1,5 @@
 const fs = require('fs');
+const readline = require("readline-sync");
 
 // Read file and make array of words.
 const fl = fs.readFileSync('test.txt', 'utf8');
@@ -39,5 +40,24 @@ function updateDomainCounter(dict, domainSet) {
 const domainSet = getDomainSet();
 const domainCounter = getDomainCounter(domainSet);
 const result = updateDomainCounter(domainCounter, domainSet);
+
+console.log('Please select the mode you want: \n1) All results \n2) Top 10 results \n3) More than n occurrences \n4) Grouped by domain');
+const mode = Number(readline.prompt());
+
+if (mode === 1) {
+    console.log(result);
+} else if (mode === 2) {
+    console.log(pickHighest(result, 10));
+} else if (mode === 3) {
+    console.log('Please enter a number:')
+    const hits = Number(readline.prompt());
+    console.log(returnIfHigherThanN(result, hits));
+} else if (mode === 4) {
+    console.log(groupedResult);
+} else {
+    console.log("Invalid mode");
+}
+
+
 
 console.log(result);
